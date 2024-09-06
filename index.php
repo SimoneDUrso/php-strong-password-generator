@@ -4,6 +4,10 @@ function generatePassword($length)
     $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-={}[]|:;<>,.?';
     $password = '';
     $charactersLength = strlen($characters);
+    for ($i = 0; $i < $length; $i++) {
+        $password .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $password;
 }
 ?>
 
@@ -26,7 +30,7 @@ function generatePassword($length)
             <div class="col-6">
                 <form action="./index.php" method="GET">
                     <label for="length">Lunghezza password:</label>
-                    <input class="form-control w-50" type="number" name="length" id="length" min="4" max="30">
+                    <input class="form-control w-50" type="number" name="length" id="length" min="4" max="10">
                     <br>
                     <button type="submit" class="btn btn-md btn-primary">Genera</button>
                 </form>
