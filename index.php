@@ -1,9 +1,31 @@
 <?php
+session_start(); // Avvia la sessione
 include './functions.php';
+
+if (isset($_GET['length'])) {
+    $length = intval($_GET['length']);
+
+    // Verifica se la lunghezza è valida
+    if ($length >= 4 && $length <= 10) {
+        $generatedPassword = generatePassword($length);
+
+        // Salva la password nella sessione
+        $_SESSION['generatedPassword'] = $generatedPassword;
+
+        // Redirect alla pagina dedicata
+        header("Location: show_password.php");
+        exit(); // Termina l'esecuzione del codice
+    } else {
+        // Messaggio di errore per lunghezza non valida
+        $_SESSION['error'] = "La lunghezza deve essere tra 4 e 10 caratteri.";
+        header("Location: index.php");
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
@@ -27,18 +49,12 @@ include './functions.php';
                 </form>
             </div>
             <div class="col-6">
-                <p>
-                    <?php
-                    // Se generatedPassword esiste e le condizioni sono state rispettate, mostra la password
-                    if (isset($generatedPassword)) {
-                        echo "<p class='alert alert-info'>Password Generata: $generatedPassword</p>";
-                    }
-                    // Se è stata richiesta una password ma la lunghezza non è valida, mostra l'errore
-                    else if (isset($_GET['length']) && ($_GET['length'] < 4 || $_GET['length'] > 10)) {
-                        echo "<div class='alert alert-danger'>La lunghezza deve essere tra 4 e 10 caratteri.</div>";
-                    }
-                    ?>
-                </p>
+                <?php
+                // Mostra eventuali messaggi di errore dalla sessione
+                if (isset($_SESSION['error'])) {
+                    echo "<div class='alert alert-danger'>{$_SESSION['error']}</div>";
+                }
+                ?>
             </div>
         </div>
     </div>
