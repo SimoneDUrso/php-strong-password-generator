@@ -1,26 +1,5 @@
 <?php
-function generatePassword($length)
-{
-    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-={}[]|:;<>,.?';
-    $password = '';
-    $charactersLength = strlen($characters);
-    for ($i = 0; $i < $length; $i++) {
-        $password .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $password;
-}
-
-// Controllo se esiste il parametro "length"
-if (isset($_GET['length'])) {
-
-    // Qui converto il parametro in un numero intero
-    $length = intval($_GET['length']);
-
-    // Se la password è compresa tra 4 e 30 generami la password
-    if ($length >= 4 && $length <= 30) {
-        $generatedPassword = generatePassword($length);
-    }
-}
+include './functions.php';
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +13,7 @@ if (isset($_GET['length'])) {
     <title>Strong Password Generator</title>
 </head>
 
-<body>
+<body class="bg-body">
     <div class="container">
         <div class="row">
             <h1 class="text-center">Strong Password Generator</h1>
@@ -50,14 +29,13 @@ if (isset($_GET['length'])) {
             <div class="col-6">
                 <p>
                     <?php
-                    // Se generatedPassword esiste e le condizioni sono state rispettate restituiscimi la password a schermo
+                    // Se generatedPassword esiste e le condizioni sono state rispettate, mostra la password
                     if (isset($generatedPassword)) {
                         echo "<p class='alert alert-info'>Password Generata: $generatedPassword</p>";
                     }
-
-                    // Altrimenti restituiscimi questo messaggio di avviso
-                    else {
-                        echo "<div>La lunghezza deve essere tra 4 e 30 caratteri.</div>";
+                    // Se è stata richiesta una password ma la lunghezza non è valida, mostra l'errore
+                    else if (isset($_GET['length']) && ($_GET['length'] < 4 || $_GET['length'] > 10)) {
+                        echo "<div class='alert alert-danger'>La lunghezza deve essere tra 4 e 10 caratteri.</div>";
                     }
                     ?>
                 </p>
