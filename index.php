@@ -15,7 +15,12 @@
             <div class="col-6">
                 <h1 class="text-center">Strong Password Generator</h1>
                 <h2 class="text-center">Genera una password sicura</h2>
-
+                <form action="./index.php" method="GET">
+                    <label for="length">Lunghezza password:</label>
+                    <input class="form-control w-50" type="number" id="length" name="length" min="4" max="30" required>
+                    <br>
+                    <button type="submit" class="btn btn-md btn-primary">Genera</button>
+                </form>
             </div>
         </div>
     </div>
