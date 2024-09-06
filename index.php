@@ -1,3 +1,12 @@
+<?php
+function generatePassword($length)
+{
+    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-={}[]|:;<>,.?';
+    $password = '';
+    $charactersLength = strlen($characters);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,15 +21,18 @@
 <body>
     <div class="container">
         <div class="row">
+            <h1 class="text-center">Strong Password Generator</h1>
+            <h2 class="text-center">Genera una password sicura</h2>
             <div class="col-6">
-                <h1 class="text-center">Strong Password Generator</h1>
-                <h2 class="text-center">Genera una password sicura</h2>
                 <form action="./index.php" method="GET">
                     <label for="length">Lunghezza password:</label>
-                    <input class="form-control w-50" type="number" id="length" name="length" min="4" max="30" required>
+                    <input class="form-control w-50" type="number" name="length" id="length" min="4" max="30">
                     <br>
                     <button type="submit" class="btn btn-md btn-primary">Genera</button>
                 </form>
+            </div>
+            <div class="col-6">
+                <p>ciao</p>
             </div>
         </div>
     </div>
